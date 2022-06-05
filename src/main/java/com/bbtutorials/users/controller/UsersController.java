@@ -34,16 +34,16 @@ public class UsersController {
     }
 	
 	@PostMapping(path = UserLinks.ADD_USER)
-	public ResponseEntity<?> saveUser(@RequestBody Users user) {
+	public ResponseEntity<Users> saveUser(@RequestBody Users user) {
         //log.info("UsersController:  list users");
         Users resource = usersService.saveUser(user);
         return ResponseEntity.ok(resource);
     }
 
     @GetMapping(path = UserLinks.GET_USER)
-    public ResponseEntity<?> getUser(@PathVariable Long id) {
+    public ResponseEntity<Users> getUser(@PathVariable long id) {
         //log.info("UsersController:  list users");
-        Optional<Users> resource = usersService.getUser(id);
+        Users resource = usersService.getUser(id);
         return ResponseEntity.ok(resource);
     }
 }
