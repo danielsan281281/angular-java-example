@@ -17,15 +17,15 @@ public class Users {
     private long id;
 
     @Column
-    @NotNull(message="{NotNull.User.firstName}")
+    @NotNull(message="{NotNull.Users.firstName}")
     private String firstName;
     
     @Column
-    @NotNull(message="{NotNull.User.lastName}")
+    @NotNull(message="{NotNull.Users.lastName}")
     private String lastName;
     
     @Column
-    @NotNull(message="{NotNull.User.email}")
+    @NotNull(message="{NotNull.Users.email}")
     private String email;
 
 }
