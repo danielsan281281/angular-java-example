@@ -3,7 +3,8 @@ pipeline {
     stages { 
         stage('Build') { 
             steps { 
-               echo 'This is a minimal pipeline.' 
+				echo 'Init Build state'
+				sh 'mvn -Dmaven.test.failure.ignore=true install' 
             }
         }
     }
