@@ -25,7 +25,8 @@ public class UsersControllerMockitoTests {
 
     @Test
     public void testGetUser() throws Exception {
-        Users user = new Users(1, "first", "last 1", "abc1@gmail.com");
+
+        Users user = Users.builder().id(1).firstName("first").lastName("last 1").email("abc1@gmail.com").build();
 
         Mockito.when(usersService.getUser(1)).thenReturn(user);
 

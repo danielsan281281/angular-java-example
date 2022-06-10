@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bbtutorials.users.dto.UsersDTO;
 import com.bbtutorials.users.entity.Users;
 import com.bbtutorials.users.links.UserLinks;
 import com.bbtutorials.users.service.UsersService;
@@ -22,27 +23,29 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/")
 public class UsersController {
-	
-	@Autowired
-	UsersService usersService;
-	
-	@GetMapping(path = UserLinks.LIST_USERS)
+
+    @Autowired
+    UsersService usersService;
+
+    @GetMapping(path = UserLinks.LIST_USERS)
     public ResponseEntity<?> listUsers() {
-        //log.info("UsersController:  list users");
+        log.info("UsersController:  list users");
         List<Users> resource = usersService.getUsers();
         return ResponseEntity.ok(resource);
     }
-	
-	@PostMapping(path = UserLinks.ADD_USER)
-	public ResponseEntity<Users> saveUser(@RequestBody Users user) {
-        //log.info("UsersController:  list users");
+
+    @PostMapping(path = UserLinks.ADD_USER)
+    public ResponseEntity<Users> saveUser(@RequestBody UsersDTO userDTO) {
+        log.info("UsersController:  list users");
+        Users user = Users.builder().id(userDTO.getId()).firstName(userDTO.getFirstName())
+                .lastName(userDTO.getLastName()).email(userDTO.getEmail()).build();
         Users resource = usersService.saveUser(user);
         return ResponseEntity.ok(resource);
     }
 
     @GetMapping(path = UserLinks.GET_USER)
     public ResponseEntity<Users> getUser(@PathVariable long id) {
-        //log.info("UsersController:  list users");
+        log.info("UsersController:  list users");
         Users resource = usersService.getUser(id);
         return ResponseEntity.ok(resource);
     }

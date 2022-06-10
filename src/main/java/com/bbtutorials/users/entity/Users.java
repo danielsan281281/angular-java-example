@@ -5,11 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Users {
 	
 	@Id
@@ -27,16 +33,4 @@ public class Users {
     @Column
     @NotNull(message="{NotNull.Users.email}")
     private String email;
-
-    public Users(){
-    }
-
-    // Only for testing purposes
-    public Users(long id, String firstName, String lastName, String email){
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
-
 }
