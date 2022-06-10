@@ -29,14 +29,14 @@ public class UsersController {
 
     @GetMapping(path = UserLinks.LIST_USERS)
     public ResponseEntity<?> listUsers() {
-        log.info("UsersController:  list users");
+        log.info("UsersController:  listUsers");
         List<Users> resource = usersService.getUsers();
         return ResponseEntity.ok(resource);
     }
 
     @PostMapping(path = UserLinks.ADD_USER)
     public ResponseEntity<Users> saveUser(@RequestBody UsersDTO userDTO) {
-        log.info("UsersController:  list users");
+        log.info("UsersController: saveUser");
         Users user = Users.builder().id(userDTO.getId()).firstName(userDTO.getFirstName())
                 .lastName(userDTO.getLastName()).email(userDTO.getEmail()).build();
         Users resource = usersService.saveUser(user);
@@ -45,7 +45,7 @@ public class UsersController {
 
     @GetMapping(path = UserLinks.GET_USER)
     public ResponseEntity<Users> getUser(@PathVariable long id) {
-        log.info("UsersController:  list users");
+        log.info("UsersController: getUser");
         Users resource = usersService.getUser(id);
         return ResponseEntity.ok(resource);
     }
