@@ -10,7 +10,7 @@ pipeline {
             steps { 
 				echo 'Init Build state'
 				sh 'mvn clean package' 
-				sh 'docker build -t dasamo/users-service .'
+				//sh 'docker build -t dasamo/users-service .'
             }
         }
 		stage('SonarQube analysis') {
