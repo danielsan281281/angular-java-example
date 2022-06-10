@@ -17,7 +17,7 @@ class UsersApplicationTests {
     private MockMvc mockMvc;
 
     @Test
-    public void testGetUsers() throws Exception {
+    void testGetUsers() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/users"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1))

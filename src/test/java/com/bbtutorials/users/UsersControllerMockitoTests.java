@@ -24,7 +24,7 @@ public class UsersControllerMockitoTests {
     UsersController usersController;
 
     @Test
-    public void testGetUser() throws Exception {
+    void testGetUser() throws Exception {
 
         Users user = Users.builder().id(1).firstName("first").lastName("last 1").email("abc1@gmail.com").build();
 
@@ -32,7 +32,7 @@ public class UsersControllerMockitoTests {
 
         ResponseEntity<Users> responseEntity = usersController.getUser(1);
 
-        assertEquals(responseEntity.getStatusCodeValue(), 200);
+        assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
 }
