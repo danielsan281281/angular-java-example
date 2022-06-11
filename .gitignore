@@ -2,3 +2,4 @@
 /src/main/ui/node_modules
 Jenkinsfile.bak
 Dockerfile.bak
+/src/main/ui/dist

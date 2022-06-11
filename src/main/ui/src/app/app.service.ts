@@ -8,15 +8,16 @@ export class AppService {
 
   constructor(private http: HttpClient) { }
 
-  rootURL = '/api';
+  //FIXME: 
+  rootURL = 'http://localhost:8081/api';
 
   getUsers() {
     return this.http.get(this.rootURL + '/users');
   }
 
   addUser(user: any, id: number) {
-	user.id = id;
-	return this.http.post(this.rootURL + '/user', user);
+	  user.id = id;
+	  return this.http.post(this.rootURL + '/user', user);
   }
 
 }
