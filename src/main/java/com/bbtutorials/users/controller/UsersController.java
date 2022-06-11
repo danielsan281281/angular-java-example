@@ -1,8 +1,9 @@
 package com.bbtutorials.users.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,28 +26,45 @@ import lombok.extern.slf4j.Slf4j;
 public class UsersController {
 
     @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
     UsersService usersService;
 
     @GetMapping(path = UserLinks.LIST_USERS)
-    public ResponseEntity<?> listUsers() {
+    public ResponseEntity<List<UsersDTO>> listUsers() {
         log.info("UsersController:  listUsers");
-        List<Users> resource = usersService.getUsers();
+
+        List<UsersDTO> resource = usersService.getUsers().stream().map(users -> modelMapper.map(users, UsersDTO.class))
+                .collect(Collectors.toList());
+
         return ResponseEntity.ok(resource);
     }
 
     @PostMapping(path = UserLinks.ADD_USER)
-    public ResponseEntity<Users> saveUser(@RequestBody UsersDTO userDTO) {
+    public ResponseEntity<UsersDTO> saveUser(@RequestBody UsersDTO userDTO) {
         log.info("UsersController: saveUser");
-        Users user = Users.builder().id(userDTO.getId()).firstName(userDTO.getFirstName())
-                .lastName(userDTO.getLastName()).email(userDTO.getEmail()).build();
-        Users resource = usersService.saveUser(user);
+
+        // DTO to entity
+        Users user = modelMapper.map(userDTO, Users.class);
+
+        user = usersService.saveUser(user);
+
+        // entity to DTO
+        UsersDTO resource = modelMapper.map(user, UsersDTO.class);
+
         return ResponseEntity.ok(resource);
     }
 
     @GetMapping(path = UserLinks.GET_USER)
-    public ResponseEntity<Users> getUser(@PathVariable long id) {
+    public ResponseEntity<UsersDTO> getUser(@PathVariable long id) {
         log.info("UsersController: getUser");
-        Users resource = usersService.getUser(id);
+
+        Users user = usersService.getUser(id);
+
+        // entity to DTO
+        UsersDTO resource = modelMapper.map(user, UsersDTO.class);
+
         return ResponseEntity.ok(resource);
     }
 }
